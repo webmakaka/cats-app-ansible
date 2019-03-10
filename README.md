@@ -11,8 +11,8 @@ Node - узел, на котором запускается приложение
 2)
 
     $ cd ~
-    $ git clone --depth=1 https://github.com/marley-nodejs/cats_app_ansible
-    $ cd cats_app_ansible/vm/
+    $ git clone --depth=1 https://github.com/marley-nodejs/cats-app-ansible.git
+    $ cd cats-app-ansible/vm/
     $ ssh-add ~/.vagrant.d/insecure_private_key
     $ vagrant box update
     $ vagrant up
@@ -42,12 +42,6 @@ Node - узел, на котором запускается приложение
 
 ### Controller
 
-    # vi /etc/ansible/hosts
-
-добавить ip или достаточно hostname
-
-    node
-
 <br/>
 
     # su - ansible
@@ -60,12 +54,9 @@ Node - узел, на котором запускается приложение
     $ ssh ansible@node
     exit
 
-    // Устанавливаем python 2.x на сервер
-    // $ ssh -tt server "sudo apt install -y python"
-
     $ cd ~
-    $ git clone --depth=1 https://github.com/marley-nodejs/cats_app_ansible
-    $ cd cats_app_ansible/
+    $ git clone --depth=1 https://github.com/marley-nodejs/cats-app-ansible
+    $ cd cats-app-ansible/
     $ ansible-playbook playbook.yaml -K
 
 <br/>
