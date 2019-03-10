@@ -1,0 +1,65 @@
+---
+- hosts: all
+  gather_facts: no
+  remote_user: ansible
+  become: true
+  become_method: sudo
+
+  pre_tasks:
+    - name: Ensure python 2.7 is present
+      become: yes
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      register: output
+      changed_when:
+        - output.stdout != ""
+        - output.stdout != "\r\n"
+
+  tasks:
+    - name: Add SSH authorized key for user user copying it from current user
+      authorized_key:
+        user: ansible
+        key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+
+    - name: Installing nodejs and git
+      become: yes
+      apt:
+        name: ["npm", "git"]
+        state: latest
+      with_items:
+        - npm
+        - git
+
+    - name: GIT clone
+      git:
+        repo: git://github.com/marley-nodejs/cats-app
+        dest: /home/ansible/cats-app
+        clone: yes
+        force: yes
+
+    - name: Cats app installation
+      npm:
+        path: /home/ansible/cats-app
+
+    - name: Forever installation
+      become: yes
+      npm:
+        name: forever
+        global: true
+        state: present
+
+    - name: Run cats app as daemon
+      command: forever start --minUptime 1000 --spinSleepTime 1000 /home/ansible/cats-app/index.js
+      register: something
+
+    - name: Install and run Nginx
+      apt: name=nginx state=latest
+
+    - name: copy the nginx config file
+      copy:
+        src: ./nginx/nginx.conf
+        dest: /etc/nginx/sites-enabled/default
+
+    - name: start nginx
+      service:
+        name: nginx
+        state: restarted
