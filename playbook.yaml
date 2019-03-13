@@ -22,9 +22,6 @@
       apt:
         name: ["npm", "git"]
         state: latest
-      with_items:
-        - npm
-        - git
 
     - name: GIT clone
       git:
