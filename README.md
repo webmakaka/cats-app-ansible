@@ -33,9 +33,7 @@ Node - узел, на котором запускается приложение
     # usermod -aG sudo ansible
     # passwd ansible
 
-    # vi /etc/ssh/sshd_config
-    PasswordAuthentication yes
-
+    # sed -i "s/.*PasswordAuthentication.*/PasswordAuthentication yes/g" /etc/ssh/sshd_config
     # service sshd reload
 
 <br/>
