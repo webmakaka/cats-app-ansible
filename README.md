@@ -6,7 +6,12 @@ Node - узел, на котором запускается приложение
 1.  Установить vagrant
     https://www.vagrantup.com/
 
-    \$ vagrant plugin install vagrant-hosts
+    $ vagrant plugin install vagrant-hosts
+
+<br/>
+
+    // Устанавливаем доп плагин
+    $ vagrant plugin install vagrant-hostmanager
 
 2)
 
@@ -16,6 +21,15 @@ Node - узел, на котором запускается приложение
     $ ssh-add ~/.vagrant.d/insecure_private_key
     $ vagrant box update
     $ vagrant up
+
+<br/>
+
+    $ vagrant status
+    Current machine states:
+
+    controller                running (virtualbox)
+    node                      running (virtualbox)
+
 
 3)
 
@@ -50,7 +64,11 @@ Node - узел, на котором запускается приложение
 
     // Проверка подключения без ввода пароля
     $ ssh ansible@node
-    exit
+
+    // Если удалось подключиться, все ОК. Выходим и продолжаем.
+    $ exit
+
+<br/>
 
     $ cd ~
     $ git clone --depth=1 https://github.com/marley-nodejs/cats-app-ansible
@@ -59,9 +77,9 @@ Node - узел, на котором запускается приложение
 
 <br/>
 
-nginx - http://192.168.56.102:80/
+nginx - http://192.168.0.12:80/
 
-node - http://192.168.56.102:8080/
+node - http://192.168.0.12:8080/
 
 <br/>
 

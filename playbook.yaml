@@ -2,14 +2,14 @@
 - hosts: all
   gather_facts: no
 
-  pre_tasks:
-    - name: Ensure python 2.7 is present
-      become: yes
-      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
-      register: output
-      changed_when:
-        - output.stdout != ""
-        - output.stdout != "\r\n"
+#  pre_tasks:
+#    - name: Ensure python 2.7 is present
+#      become: yes
+#      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+#      register: output
+#      changed_when:
+#        - output.stdout != ""
+#        - output.stdout != "\r\n"
 
   tasks:
     - name: Add SSH authorized key for user
@@ -63,5 +63,5 @@
 
     - name: test that webserver is available
       uri:
-        url: http://192.168.56.102
+        url: http://192.168.0.12
         status_code: 200
