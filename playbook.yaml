@@ -12,10 +12,10 @@
 #        - output.stdout != "\r\n"
 
   tasks:
-    - name: Add SSH authorized key for user
-      authorized_key:
-        user: ansible
-        key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+#    - name: Add SSH authorized key for user
+#      authorized_key:
+#        user: ansible
+#        key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
 
     - name: Installing nodejs and git
       become: yes
@@ -43,7 +43,7 @@
 
     - name: Run cats app as daemon
       command: forever start --minUptime 1000 --spinSleepTime 1000 /home/ansible/cats-app/index.js
-      register: something
+#     register: something
 
     - name: Install and run Nginx
       package:
