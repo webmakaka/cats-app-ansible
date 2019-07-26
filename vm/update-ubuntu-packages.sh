@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-apt update && apt upgrade -y
+apt-get update && apt-get upgrade -y

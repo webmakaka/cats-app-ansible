@@ -71,7 +71,7 @@ Node - узел, на котором запускается приложение
 <br/>
 
     $ cd ~
-    $ git clone --depth=1 https://github.com/marley-nodejs/cats-app-ansible
+    $ git clone --depth=1 https://github.com/marley-nodejs/cats-app-ansible.git
     $ cd cats-app-ansible/
     $ ansible-playbook playbook.yaml -K
 
@@ -89,7 +89,6 @@ node - http://192.168.0.12:8080/
 
 # TODO: Что нужно сделать!
 
-- Передавать адрес сервера на котором должно разворачиваться приложение в командной строке
 - Сообщение о результатах деплоя в slack и телеграм.
 - Nginx должен работать по https
 
