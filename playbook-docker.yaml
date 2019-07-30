@@ -42,8 +42,8 @@
   #       - docker-py
   #     executable: pip3
 
-  - name: Install pip
-    apt: name=python-pip state=present
+  - name: Install pip3
+    apt: name=python3-pip state=present
   - name: install docker-py package
     pip: name=docker-py
 
@@ -71,16 +71,16 @@
   - name: Build Docker image from Dockerfile
     docker_image:
       name: cats-app-docker-image
-      build.path: /home/ansible/cats-app/Dockerfile
+      build.path: /home/ansible/cats-app
       state: build
       
   - name: Running the container
     docker_container:
       name: cats-app-docker-container
       image: cats-app-docker-image:latest
-      path: docker
-      publish_all_ports: yes
-      state: reloaded
+      state: started
+      ports:
+        - "8080:8080"
 
   handlers:
   - name: docker status
