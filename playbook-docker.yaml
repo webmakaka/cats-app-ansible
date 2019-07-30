@@ -55,11 +55,11 @@
         - "8080:8080"
 
   - name: Install and run Nginx
-      package:
-        name: nginx
-        state: latest
+    package:
+      name: nginx
+      state: latest
 
-  - name: GIT clone Cats App
+  - name: GIT clone Nginx Script
     git:
       repo: git://github.com/marley-nodejs/cats-app-ansible
       dest: /home/ansible/cats-app-ansible
@@ -81,8 +81,8 @@
       url: http://192.168.0.12
       status_code: 200
 
-  # handlers:
-  # - name: docker status
-  #   service:
-  #     name: docker
-  #     state: started
+    # handlers:
+    # - name: docker status
+    #   service:
+    #     name: docker
+    #     state: started
