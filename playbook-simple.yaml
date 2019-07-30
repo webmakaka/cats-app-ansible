@@ -1,22 +1,7 @@
 ---
 - hosts: all
   gather_facts: no
-
-#  pre_tasks:
-#    - name: Ensure python 2.7 is present
-#      become: yes
-#      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
-#      register: output
-#      changed_when:
-#        - output.stdout != ""
-#        - output.stdout != "\r\n"
-
   tasks:
-#    - name: Add SSH authorized key for user
-#      authorized_key:
-#        user: ansible
-#        key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
-
     - name: Installing nodejs and git
       become: yes
       apt:

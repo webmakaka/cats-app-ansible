@@ -60,6 +60,7 @@ Node - узел, на котором запускается приложение
 
     $ ssh-keygen -t rsa -b 2048 -f ~/.ssh/id_rsa -q -N ""
 
+    // Подтвеждаем, что хотим подключиться, вводим пароль, копируем ключ
     $ ssh-copy-id ansible@node
 
     // Проверка подключения без ввода пароля
@@ -73,7 +74,20 @@ Node - узел, на котором запускается приложение
     $ cd ~
     $ git clone --depth=1 https://github.com/marley-nodejs/cats-app-ansible.git
     $ cd cats-app-ansible/
-    $ ansible-playbook playbook.yaml -K
+
+<br/>
+
+**Вариант простой установки**
+
+    $ ansible-playbook playbook-simple.yaml -K
+
+<br/>
+
+**Вариант с инсталляцией docker (В разработке)**
+
+Цель: Установить docker на удаленном хосте, собрать приложение в имидж, запустить контейнер с приложением.
+
+    $ ansible-playbook playbook-docker.yaml -K
 
 <br/>
 
