@@ -30,17 +30,22 @@
       name: ansible
       group: docker
 
-  - name: Install dependencies
-    apt:
-      name:
-        - python3-pip
-      state: latest
-      update_cache: True
-  - name: Install required pip packages
-    pip:
-      name:
-        - docker-py
-      executable: pip3
+  # - name: Install dependencies
+  #   apt:
+  #     name:
+  #       - python3-pip
+  #     state: latest
+  #     update_cache: True
+  # - name: Install required pip packages
+  #   pip:
+  #     name:
+  #       - docker-py
+  #     executable: pip3
+
+  - name: Install pip
+    apt: name=python-pip state=present
+  - name: install docker-py package
+    pip: name=docker-py
 
   - name: GIT clone
     git:
@@ -49,19 +54,33 @@
       clone: yes
 #      force: yes
 
-  - name: build the image
-    docker_image: >
-      name=cats-app-docker-image
-      tag=latest
-      path=/home/ansible/cats-app
-      state=present
+  # - name: build the image
+  #   docker_image: >
+  #     name=cats-app-docker-image
+  #     tag=latest
+  #     build.path=/home/ansible/cats-app/Dockerfile
+  #     state=present
 
-  - name: run the site in a docker container
-    docker:
+  # - name: run the site in a docker container
+  #   docker:
+  #     name: cats-app-docker-container
+  #     image: "cats-app-docker-image:latest"
+  #     state: reloaded
+  #     publish_all_ports: yes
+
+  - name: Build Docker image from Dockerfile
+    docker_image:
+      name: cats-app-docker-image
+      build.path: /home/ansible/cats-app/Dockerfile
+      state: build
+      
+  - name: Running the container
+    docker_container:
       name: cats-app-docker-container
-      image: "cats-app-docker-image:latest"
-      state: reloaded
+      image: cats-app-docker-image:latest
+      path: docker
       publish_all_ports: yes
+      state: reloaded
 
   handlers:
   - name: docker status
