@@ -9,7 +9,7 @@
 
   - name: Add apt repository for stable version
     apt_repository:
-      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
       state: present
 
   - name: Install docker and its dependecies
@@ -21,7 +21,6 @@
       packages:
       - docker-ce 
       - docker-ce-cli 
-#      - containerd.io
     notify:
       - docker status
 
@@ -30,49 +29,22 @@
       name: ansible
       group: docker
 
-  # - name: Install dependencies
-  #   apt:
-  #     name:
-  #       - python3-pip
-  #     state: latest
-  #     update_cache: True
-  # - name: Install required pip packages
-  #   pip:
-  #     name:
-  #       - docker-py
-  #     executable: pip3
-
   - name: Install pip3
     apt: name=python3-pip state=present
   - name: install docker-py package
     pip: name=docker-py
 
-  - name: GIT clone
+  - name: GIT clone Cats App
     git:
       repo: git://github.com/marley-nodejs/cats-app
       dest: /home/ansible/cats-app
       clone: yes
-#      force: yes
-
-  # - name: build the image
-  #   docker_image: >
-  #     name=cats-app-docker-image
-  #     tag=latest
-  #     build.path=/home/ansible/cats-app/Dockerfile
-  #     state=present
-
-  # - name: run the site in a docker container
-  #   docker:
-  #     name: cats-app-docker-container
-  #     image: "cats-app-docker-image:latest"
-  #     state: reloaded
-  #     publish_all_ports: yes
 
   - name: Build Docker image from Dockerfile
     docker_image:
       name: cats-app-docker-image
-      build.path: /home/ansible/cats-app
-      state: build
+      path: /home/ansible/cats-app
+      state: present
       
   - name: Running the container
     docker_container:
@@ -82,8 +54,35 @@
       ports:
         - "8080:8080"
 
-  handlers:
-  - name: docker status
+  - name: Install and run Nginx
+      package:
+        name: nginx
+        state: latest
+
+  - name: GIT clone Cats App
+    git:
+      repo: git://github.com/marley-nodejs/cats-app-ansible
+      dest: /home/ansible/cats-app-ansible
+      clone: yes
+
+  - name: copy the nginx config file
+    copy:
+      src: /home/ansible/cats-app-ansible/nginx/nginx.conf
+      dest: /etc/nginx/sites-enabled/default
+
+  - name: start nginx
     service:
-      name: docker
-      state: started
+      name: nginx
+      enabled: true
+      state: restarted
+
+  - name: test that webserver is available
+    uri:
+      url: http://192.168.0.12
+      status_code: 200
+
+  # handlers:
+  # - name: docker status
+  #   service:
+  #     name: docker
+  #     state: started
