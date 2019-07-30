@@ -30,14 +30,17 @@
       name: ansible
       group: docker
 
-  - name: install certain python modules for docker
+  - name: Install dependencies
+    apt:
+      name:
+        - python3-pip
+      state: latest
+      update_cache: True
+  - name: Install required pip packages
     pip:
-      name: "{{ item.name }}"
-#      version: "{{ item.version }}"
-      state: present
-    with_items:
-#    - { name: docker-py, version: 1.10.6 }
-    - { name: docker-py}
+      name:
+        - docker-py
+      executable: pip3
 
   - name: GIT clone
     git:
