@@ -35,3 +35,24 @@
     service:
       name: docker
       state: started
+
+  - name: GIT clone
+    git:
+      repo: git://github.com/marley-nodejs/cats-app
+      dest: /home/ansible/cats-app
+      clone: yes
+      force: yes
+
+  - name: build the image
+    docker_image: >
+      name=cats-app-docker-image
+      tag=latest
+      path=/home/ansible/cats-app
+      state=present
+
+  - name: run the site in a docker container
+    docker:
+      name: cats-app-docker-container
+      image: "cats-app-docker-image:latest"
+      state: reloaded
+      publish_all_ports: yes
