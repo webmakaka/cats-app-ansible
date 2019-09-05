@@ -3,16 +3,13 @@
 Controller - хост с которого запускаем ansible скрипты.  
 Node - узел, на котором запускается приложение.
 
-1.  Установить vagrant
+1)  Установить vagrant
     https://www.vagrantup.com/
 
 <br/>
 
+    // Устанавливаем доп плагины
     $ vagrant plugin install vagrant-hosts
-
-<br/>
-
-    // Устанавливаем доп плагин
     $ vagrant plugin install vagrant-hostmanager
 
 2)
