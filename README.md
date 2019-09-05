@@ -6,6 +6,8 @@ Node - узел, на котором запускается приложение
 1.  Установить vagrant
     https://www.vagrantup.com/
 
+<br/>
+
     $ vagrant plugin install vagrant-hosts
 
 <br/>
@@ -89,6 +91,8 @@ Node - узел, на котором запускается приложение
 * Собрает приложение в имидж
 * Запускает контейнер с приложением
 * Поднимается nginx локально как proxy (возможно, нужно перенести в контейнер)
+
+<br/>
 
     $ ansible-playbook playbook-docker.yaml -K
 
