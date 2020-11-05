@@ -110,8 +110,13 @@ node - http://192.168.0.12:8080/
 - Сообщение о результатах деплоя в slack и телеграм.
 - Nginx должен работать по https
 
+<br/>
+
 ---
+
+<br/>
 
 **Marley**
 
-<a href="https://jsdev.org">jsdev.org</a>
+Any questions in english: <a href="https://jsdev.org/chat/">Telegram Chat</a>  
+Любые вопросы на русском: <a href="https://jsdev.ru/chat/">Телеграм чат</a>
